@@ -1,4 +1,4 @@
-# outube-dl-docker
+# youtube-dl-docker
 
 Dockerized version of https://github.com/ytdl-org/youtube-dl
 
