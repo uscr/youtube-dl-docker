@@ -9,7 +9,7 @@ RUN git clone https://github.com/ytdl-org/youtube-dl
 WORKDIR /youtube-dl
 RUN make install
 
-FROM ubuntu:24.10
+FROM python:3.9.20-slim
 
 COPY --from=builder /usr/local/bin/youtube-dl /usr/local/bin/youtube-dl
 
