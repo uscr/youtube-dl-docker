@@ -1,16 +1,6 @@
-FROM ubuntu:24.10 as builder
+FROM python:3-slim
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt update && apt install -y git make zip python3 pandoc && \
-    apt -y clean && rm -rf /var/cache/apt/archives /var/lib/apt/lists/* /etc/apt/keyrings
-RUN ln -s /usr/bin/python3 /usr/bin/python
-RUN git clone https://github.com/ytdl-org/youtube-dl
-WORKDIR /youtube-dl
-RUN make install
-
-FROM python:3.9.20-slim
-
-COPY --from=builder /usr/local/bin/youtube-dl /usr/local/bin/youtube-dl
+RUN python -c "import urllib.request; urllib.request.urlretrieve('https://github.com/ytdl-org/youtube-dl/releases/latest/download/youtube-dl', '/usr/local/bin/youtube-dl')" && \
+    chmod a+rx /usr/local/bin/youtube-dl
 
 ENTRYPOINT ["/usr/local/bin/youtube-dl"]
