@@ -6,6 +6,7 @@ default:
 variables:
   DOCKER_BUILDKIT: 1
   IMAGE_TAG: $CI_REGISTRY_IMAGE/$CI_COMMIT_BRANCH/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA
+  IMAGE_TAG_LATEST: $CI_REGISTRY_IMAGE:latest
 
 stages:
   - build
@@ -17,4 +18,4 @@ build and push:
     - docker buildx inspect --bootstrap
 
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker buildx build --platform linux/amd64 -t $IMAGE_TAG . --push
+    - docker buildx build --platform linux/amd64 -t $IMAGE_TAG -t $IMAGE_TAG_LATEST . --push
