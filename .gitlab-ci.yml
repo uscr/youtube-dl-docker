@@ -1,7 +1,7 @@
 default:
   image: docker:24
-  services:
-    - docker:dind
+  tags:
+    - docker
 
 variables:
   DOCKER_BUILDKIT: 1
